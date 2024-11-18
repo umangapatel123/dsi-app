@@ -16,6 +16,8 @@ import {Professional} from '../models/professional.model.js';
 import {School} from '../models/school.model.js';
 import {ngoAdmin} from '../models/ngo.model.js';
 import {Report} from '../models/report.model.js';
+import {Child} from '../models/child.model.js';
+import { Teacher } from '../models/teacher.model.js';
 
 const responder = (req, res) => {
     res.status(200).json({ message: "Hello World" });
@@ -162,6 +164,42 @@ const storeReportData = async (req, res) => {
     res.status(200).json({ message: "Report Data Stored" });
 }
 
+const searchNumber = async (req, res) => {
+    // console.log("hello");
+    // return res.status(200).json({ message: "Hello World" });
+    const data = req.body;
+    console.log(data);
+    try {
+        const usertype = data.usertype;
+        const number = data.number;
+        if(usertype=="Admin"){
+            const admin = await ngoAdmin.findOne({number: number});
+            console.log(admin);
+            res.status(200).json(admin);        
+        }else if(usertype=="Teacher"){
+            const school = await Teacher.findOne({Number: number});
+            console.log(school);
+            res.status(200).json(school);
+        }else if(usertype=="Professional"){
+            const professional = await Professional.findOne({Number: number});
+            console.log(professional);
+            res.status(200).json(professional);
+        }else if(usertype=="Parent"){
+            const parent=await Child.findOne({parentPhoneNumber: number});
+            console.log(parent);
+            res.status(200).json(parent);
+        }else{
+            res.status(500).json({ message: "Error Fetching User" });
+        }
+
+        // const data = await Professional
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error Fetching Professional Ids" });
+    }
+}
+
 
 export default responder;
 export { createProfessionalAccount,
@@ -171,5 +209,6 @@ export { createProfessionalAccount,
     assignAdminToSchool,
     getAdmins,
     getSchools,
-    storeReportData
+    storeReportData,
+    searchNumber
 };

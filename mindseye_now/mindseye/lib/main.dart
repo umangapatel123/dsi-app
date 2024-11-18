@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         // ),
         // home: TagImageManually(), // Set LoginScreen as the starting page
 
-        initialRoute: 'login',
+        initialRoute: 'parentDashboard',
         routes: {
           'login': (context) => LoginScreen(),
           'schoolLogin': (context) => SchoolLoginScreen(),
@@ -102,11 +102,11 @@ class _MyAppState extends State<MyApp> {
                 labeledScore: '',
                 imageFile: File(''),
               ),
-          'parentDashboard': (context) => ParentDashboardScreen(),
+          'parentDashboard': (context) => ParentDashboardScreen(data: '',),
           'tagImageManually': (context) => TagImageManually(
                 data: '',
               ),
-          'previousSubmission': (context) => PreviousSubmissionsScreen(),
+          'previousSubmission': (context) => PreviousSubmissionsScreen(data: '',),
           'uploadChildDetails': (context) => UploadChildDetails(),
           'uploadTeacherDetails': (context) => UploadTeacherDetails(),
           'adminDashboard': (context) => AdminDashboard(),

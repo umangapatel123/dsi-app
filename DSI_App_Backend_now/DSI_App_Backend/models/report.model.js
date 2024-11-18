@@ -41,7 +41,7 @@ const ReportSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required
+        required: true
     },
     optionalNotes: {
         type: String,

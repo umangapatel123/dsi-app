@@ -36,7 +36,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
     try {
       // await sendOtp('+91', phoneNumber); // Assuming dial code for India
       // await sendOtp('+91', phoneNumber);
-      await sendOtp('+91', phoneNumber);
+      await sendOtp('+91', phoneNumber,widget.data);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -158,7 +158,7 @@ Future<void> submitOtp() async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ParentDashboardScreen(),
+              builder: (context) => ParentDashboardScreen(data: widget.mobileNumber),
             ),
           );
         else if(widget.data == "Teacher")
@@ -253,7 +253,7 @@ Future<void> submitOtp() async {
                 children: [
                   TextButton(
                     onPressed: () {
-                      sendOtp('+91', widget.mobileNumber); // Resend OTP
+                      sendOtp('+91', widget.mobileNumber,widget.data); // Resend OTP
                     },
                     child: Text(
                       'Resend OTP',

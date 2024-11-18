@@ -6,6 +6,7 @@ import { createProfessionalAccount,
     assignAdminToSchool,
     getAdmins,
     getSchools,
+    searchNumber
 } from "../controllers/users.controller.js";
 import { get } from "mongoose";
 const router = Router();
@@ -17,4 +18,5 @@ router.route("/create-ngo-admin").post(createNgoAdminAccount);
 router.route("/assign-admin-to-school").post(assignAdminToSchool);
 router.route("/get-admins").get(getAdmins);
 router.route("/get-schools").get(getSchools);
+router.route("/search-number").post(searchNumber);
 export default router;

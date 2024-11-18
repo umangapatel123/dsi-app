@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:mindseye/adminDahboard.dart';
 
 class UploadTeacherDetails extends StatefulWidget {
   @override
@@ -8,7 +12,47 @@ class UploadTeacherDetails extends StatefulWidget {
 class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
   final _nameController = TextEditingController();
   final _classController = TextEditingController();
+  final _schoolController = TextEditingController();
   final _phoneController = TextEditingController();
+
+  void _handleUpload() async {
+    String name = _nameController.text;
+    String teacherClass = _classController.text;
+    String school = _schoolController.text;
+    String phone = _phoneController.text;
+
+    print("Name: $name");
+    print("Class: $teacherClass");
+    print("School: $school");
+    print("Phone: $phone");
+
+    const url = 'http://localhost:3000/api/users/teacherupload';
+
+    // Constructing the JSON object
+  // send a post request to url
+  var response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name': name,
+      'class': teacherClass,
+      'school': school,
+      'phone': phone,
+    }),
+  );
+
+  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdminDashboard(),
+                      ),
+                      (Route<dynamic> route) => false,
+                    );
+
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +99,7 @@ class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
               ),
               SizedBox(height: 16),
               TextField(
-                controller: _classController,
+                controller: _schoolController,
                 decoration: InputDecoration(
                   labelText: 'School *',
                   filled: true,
@@ -84,9 +128,7 @@ class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle upload logic here
-                  },
+                  onPressed: _handleUpload,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     padding: EdgeInsets.symmetric(vertical: 16),
@@ -114,6 +156,7 @@ class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
   void dispose() {
     _nameController.dispose();
     _classController.dispose();
+    _schoolController.dispose();
     _phoneController.dispose();
     super.dispose();
   }

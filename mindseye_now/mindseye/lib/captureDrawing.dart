@@ -9,6 +9,7 @@ class CaptureDrawingScreen extends StatefulWidget {
   final String age;
   final String notes;
   final String labeledScore;
+  final String data;
 
   const CaptureDrawingScreen({
     Key? key,
@@ -17,7 +18,7 @@ class CaptureDrawingScreen extends StatefulWidget {
     required this.age,
     required this.notes,
     required this.labeledScore,
-    required String data,
+    required this.data,
   }) : super(key: key);
 
   @override

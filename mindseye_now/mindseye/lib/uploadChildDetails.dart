@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:mindseye/adminDahboard.dart';
 
 class UploadChildDetails extends StatefulWidget {
   @override
@@ -10,6 +14,7 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
   final _uidController = TextEditingController();
   final _parentPhoneController = TextEditingController();
   final _classController = TextEditingController();
+  final _schoolController = TextEditingController(); // Added school controller
   final _dobController = TextEditingController();
 
   @override
@@ -84,7 +89,7 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
               ),
               SizedBox(height: 16),
               TextField(
-                controller: _classController,
+                controller: _schoolController,
                 decoration: InputDecoration(
                   labelText: 'School *',
                   filled: true,
@@ -112,8 +117,55 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle upload logic here
+                  onPressed: () async {
+                    // Get the values from the text fields
+                    final name = _nameController.text;
+                    final uid = _uidController.text;
+                    final phone = _parentPhoneController.text;
+                    final teacherClass = _classController.text;
+                    final school = _schoolController.text;
+                    final dob = _dobController.text;
+
+                    // Print the values to the console
+                    print("Name: $name");
+                    print("UID: $uid");
+                    print("Parent Phone: $phone");
+                    print("Class: $teacherClass");
+                    print("School: $school");
+                    print("Date of Birth: $dob");
+
+                    // Send post request to the backend
+                    const url = "http://localhost:3000/api/users/childupload";
+
+                    var response = await http.post(
+                      Uri.parse(url),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'name': name,
+                        'uid': uid,
+                        'phone': phone,
+                        'class': teacherClass,
+                        'school': school,
+                        'dob': dob,
+                      }),
+                    );
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdminDashboard(),
+                      ),
+                      (Route<dynamic> route) => false,
+                    );
+                    // Handle response
+                    if (response.statusCode == 201) {
+                      print("Child details uploaded successfully!");
+                    } else {
+                      print(
+                          "Failed to upload child details: ${response.body}");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
@@ -144,6 +196,7 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
     _uidController.dispose();
     _parentPhoneController.dispose();
     _classController.dispose();
+    _schoolController.dispose(); // Dispose the school controller
     _dobController.dispose();
     super.dispose();
   }

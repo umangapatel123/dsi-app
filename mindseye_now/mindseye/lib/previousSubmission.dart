@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PreviousSubmissionsScreen extends StatefulWidget {
+
+  final String data;
+  const PreviousSubmissionsScreen({Key? key, required this.data}) : super(key: key);
+
   @override
   _PreviousSubmissionsScreenState createState() =>
       _PreviousSubmissionsScreenState();

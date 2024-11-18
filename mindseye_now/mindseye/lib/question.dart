@@ -7,7 +7,6 @@ import 'package:mindseye/professionalDashboard.dart';
 import 'package:mindseye/schoolDashboard.dart';
 import 'package:http/http.dart' as http;
 
-
 class QuestionsScreen extends StatefulWidget {
   final String data;
   final String clinicName;
@@ -45,7 +44,6 @@ class _QuestionsScreenState extends State<QuestionsScreen>
       TextEditingController();
   final TextEditingController houseAdditionalNotesController =
       TextEditingController();
-
 
   // Controllers for person questions
   final TextEditingController personWhoIsController = TextEditingController();
@@ -119,36 +117,24 @@ class _QuestionsScreenState extends State<QuestionsScreen>
     String backendUrl = dotenv.env['BACKEND_URL']!;
 
     if (unfilledFields.isEmpty) {
-      
       final uri = Uri.parse('${backendUrl}/api/reports/store-report-data');
 
       // Send a POST request to the server
-      await http.post(uri, body: {
-        
-      });
-
-
+      await http.post(uri, body: {});
 
       if (widget.data == "Professional") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfessionalDashboard()),
-        );
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
+
       } else if (widget.data == "Teacher") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SchoolDashboardScreen()),
-        );
+         Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
       } else if (widget.data == "Parent") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ParentDashboardScreen()),
-        );
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfessionalDashboard()),
-        );
+         Navigator.pop(context);
+        Navigator.pop(context);
+      }
       }
     } else {
       showDialog(
