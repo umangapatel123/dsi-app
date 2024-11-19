@@ -26,8 +26,10 @@ class _LabelDataScreenState extends State<LabelDataScreen> {
         SnackBar(content: Text('Score Updated Successfully!')),
       );
       _manualScoreController.clear(); // Clear the input after submission
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) => ProfessionalDashboard()), (Route<dynamic> route) => false);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
+
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please enter a score')),

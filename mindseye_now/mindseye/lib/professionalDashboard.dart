@@ -8,6 +8,12 @@ import 'package:mindseye/schoolScreen.dart';
 import 'package:mindseye/tagImageManuaaly.dart';
 
 class ProfessionalDashboard extends StatefulWidget {
+  final String data;
+
+  const ProfessionalDashboard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
   _ProfessionalDashboardState createState() => _ProfessionalDashboardState();
 }

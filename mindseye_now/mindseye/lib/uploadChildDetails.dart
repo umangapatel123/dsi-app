@@ -152,13 +152,7 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
                       }),
                     );
 
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AdminDashboard(),
-                      ),
-                      (Route<dynamic> route) => false,
-                    );
+                    Navigator.pop(context);
                     // Handle response
                     if (response.statusCode == 201) {
                       print("Child details uploaded successfully!");

@@ -1,5 +1,8 @@
-import 'package:twilio_flutter/twilio_flutter.dart';
+import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:twilio_flutter/twilio_flutter.dart';
+import 'package:http/http.dart' as http;
 // Initialize Twilio
 final twilioFlutter = TwilioFlutter(
   accountSid: 'ACb915e231adcd26971551592d0e549487', // Replace with your Account SID
@@ -11,10 +14,11 @@ final twilioFlutter = TwilioFlutter(
 
 // Function to send OTP
 Future<void> sendOtp(String dialCode, String phoneNumber,String usertype) async {
+    String backendUrl = dotenv.env['BACKEND_URL']!;
 
-  const url = "http://localhost:3000/api/users/search-number";
+  final url = '${backendUrl}/api/users/search-number';
 
-  var response = await http.post(
+  var response_mongo = await http.post(
     Uri.parse(url),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -24,8 +28,8 @@ Future<void> sendOtp(String dialCode, String phoneNumber,String usertype) async 
       'number': phoneNumber
     }),
   );
-
-  if(reponse==null){
+  print(response_mongo.body);
+  if(response_mongo.body.message=="Error Fetching User"){
     print("User not found");
     return;
   }
@@ -45,6 +49,14 @@ Future<void> sendOtp(String dialCode, String phoneNumber,String usertype) async 
   } else {
     print('Failed to send OTP: ${response.responseState}');
   }
+}
+
+extension on String {
+  get message => null;
+}
+
+extension on http.Response {
+  get status => null;
 }
 
 Future<bool> verifyOtp(String dialCode, String phoneNumber, String otp) async {

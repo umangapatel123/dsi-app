@@ -6,8 +6,11 @@ import 'package:mindseye/selectChild.dart';
 
 class ParentDashboardScreen extends StatefulWidget {
   final String data;
-  const ParentDashboardScreen({Key? key, required this.data}) : super(key: key);
 
+  const ParentDashboardScreen({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
   _ParentDashboardScreenState createState() => _ParentDashboardScreenState();
 }
@@ -17,33 +20,21 @@ class _ParentDashboardScreenState extends State<ParentDashboardScreen> {
 
   void _captureChildDrawing() {
     // Logic for capturing a child's drawing
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SelectChildScreen(data: "Parent")));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectChildScreen(data: "Parent")));
     print("Capture Child's Drawing clicked");
     // Update as needed for actual functionality
   }
 
   void _viewPreviousStatus() {
-    print(widget.data);
-
-
-
-
-
-
     // Logic for viewing the previous status
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => PreviousSubmissionsScreen(data: widget.data)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PreviousSubmissionsScreen(data: widget.data)));
     print("View Previous Status clicked");
     // Update as needed for actual functionality
   }
 
   void _logout() {
     // Logic for logging out
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SchoolLoginScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SchoolLoginScreen()));
     print("Logout clicked");
     // Update as needed for actual functionality
   }

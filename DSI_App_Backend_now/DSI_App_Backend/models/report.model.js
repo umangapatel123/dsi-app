@@ -40,20 +40,20 @@ const ReportSchema = new mongoose.Schema({
         required: true
     },
     age: {
-        type: Number,
-        required: true
+        type: String,
+        required : true
     },
     optionalNotes: {
         type: String,
         required: false
     },
     flagforlabel: {
-        type: Boolean,
+        type: String,
         required: true
     },
     labelling: {
         type: String,
-        required: true
+        required: false
     },
     imageurl: {
         type: String,
@@ -87,12 +87,19 @@ const ReportSchema = new mongoose.Schema({
             howoldisit: { type: String, required: true },
             whatseasonisit: { type: String, required: true },
             anyonetriedtocut: { type: String, required: true},
-            anyonegrownnearby: { type: String, required: true},
             whatelsegrows: { type: String, required: true},
             whowaters: { type: String, required: true},
             doesitgetenoughsunshine: { type: String, required: true}
         }           
-    }
+    },
+    score: {
+        type: String,
+        required: false
+    },
+    analysis: {
+        type: String,
+        required: false
+    },
 }, { timestamps: true });
 
 // export const Teacher = mongoose.model('Teacher', TeacherSchema);

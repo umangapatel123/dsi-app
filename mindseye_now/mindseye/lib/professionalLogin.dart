@@ -87,12 +87,12 @@ class _ProfessionalLoginScreenState extends State<ProfessionalLoginScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Add login action
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfessionalDashboard(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => ProfessionalDashboard(),
+                    //   ),
+                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mindseye/uploadChildDetails.dart';
+import 'package:mindseye/uploadTeacherDetails.dart';
 
 class AdminDashboard extends StatefulWidget {
+  final String data;
+
+  const AdminDashboard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
 }
@@ -41,7 +49,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
       child: ElevatedButton(
         onPressed: () {
           // Add your action here for button press
-
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return label == 'Upload Child Details'
+                ? UploadChildDetails()
+                : UploadTeacherDetails();
+          }));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,

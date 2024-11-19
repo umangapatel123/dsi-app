@@ -16,8 +16,10 @@ import {Professional} from '../models/professional.model.js';
 import {School} from '../models/school.model.js';
 import {ngoAdmin} from '../models/ngo.model.js';
 import {Report} from '../models/report.model.js';
+import {Teacher} from '../models/teacher.model.js';
 import {Child} from '../models/child.model.js';
-import { Teacher } from '../models/teacher.model.js';
+
+
 
 const responder = (req, res) => {
     res.status(200).json({ message: "Hello World" });
@@ -139,6 +141,74 @@ const getSchools = async (req, res) => {
     }
 }
 
+const uploadteacherdetails = async (req, res) => {  
+    const data = req.body;
+    console.log(data);
+
+    // now store this data in mongodb
+    try {
+        const name = data.name;
+        const classs = data.class;
+        const Number = data.phone;
+        const school = data.school;
+        const teacher = new Teacher({
+            name: name,
+            class: classs,
+            Number: Number,
+            school: school,
+        });
+        await teacher.save();
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error Creating Teacher Account" });
+    }
+
+
+    // //  now add teachers number into the school
+    // // find the school first
+    const school = await School.findOne({schoolName: data.school});
+    console.log(school);
+
+    // add the teacher number to the school
+    school.teachers.push(data.phone);
+
+    await school.save();
+    res.status(200).json({ message: "Teacher Account Created" });
+
+
+}
+
+const uploadchilddetails = async (req, res) => {
+    const data = req.body;
+    console.log(data);
+
+
+    // save this in mongodb
+    try {
+        const name = data.name;
+       const uid = data.uid;
+       const phone = data.phone;
+       const classs = data.class;
+       const school = data.school;
+       const dob = data.dob;
+        const child = new Child({
+            name: name,
+            childuid: uid,
+            parentphonenumber: phone,
+            class: classs,
+            school: school,
+            dateofbirth: dob
+        });
+        await child.save();
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error Creating Child Account" });
+    }
+    res.status(200).json({ message: "Child Account Created" });
+}
+
 const storeReportData = async (req, res) => {
     const data = req.body;
     console.log(data);
@@ -150,10 +220,27 @@ const storeReportData = async (req, res) => {
         const flagforlabel = data.flagforlabel;
         const labelling = data.labelling;
         const imageurl = data.imageurl;
-        const houseAns = data.houseAns;
-        const personAns = data.personAns;
-        const treeAns = data.treeAns;
-    
+        const WhoLivesHere = data.WhoLivesHere;
+        const ArethereHappy = data.ArethereHappy;
+        const DoPeopleVisitHere = data.DoPeopleVisitHere;
+        const Whatelsepeoplewant = data.Whatelsepeoplewant;
+        const Whoisthisperson = data.Whoisthisperson;
+        const Howoldarethey = data.Howoldarethey;
+        const Whatsthierfavthing = data.Whatsthierfavthing;
+        const Whattheydontlike = data.Whattheydontlike;
+        const Whatkindoftree = data.Whatkindoftree;
+        const howoldisit = data.howoldisit;
+        const whatseasonisit = data.whatseasonisit;
+        const anyonetriedtocut = data.anyonetriedtocut;
+        const whatelsegrows = data.whatelsegrows;
+        const whowaters = data.whowaters;
+        const doesitgetenoughsunshine = data.doesitgetenoughsunshine;
+        const houseAns = { WhoLivesHere, ArethereHappy, DoPeopleVisitHere, Whatelsepeoplewant };
+        const personAns = { Whoisthisperson, Howoldarethey, Whatsthierfavthing, Whattheydontlike };
+        const treeAns = { Whatkindoftree, howoldisit, whatseasonisit, anyonetriedtocut, whatelsegrows, whowaters, doesitgetenoughsunshine };
+        console.log(houseAns);
+        console.log(personAns);
+        console.log(treeAns);
         const report = new Report({ clinicsName, childsName, age, optionalNotes, flagforlabel, labelling, imageurl, houseAns, personAns, treeAns });
         await report.save();
     }
@@ -165,27 +252,45 @@ const storeReportData = async (req, res) => {
 }
 
 const searchNumber = async (req, res) => {
-    // console.log("hello");
+    console.log("hello");
     // return res.status(200).json({ message: "Hello World" });
     const data = req.body;
-    console.log(data);
+    // console.log(data);
     try {
         const usertype = data.usertype;
         const number = data.number;
-        if(usertype=="Admin"){
+        if(usertype=="NGO Master"){
             const admin = await ngoAdmin.findOne({number: number});
+            console.log("hhshs ",admin);
+            if(admin==null){
+                console.log("Erroasdasdasda");
+                res.status(500).json({ message: "Error Fetching User" });
+                return;
+            }
             console.log(admin);
             res.status(200).json(admin);        
         }else if(usertype=="Teacher"){
             const school = await Teacher.findOne({Number: number});
+            if(school==null){
+                res.status(500).json({ message: "Error Fetching User" });
+                return;
+            }
             console.log(school);
             res.status(200).json(school);
         }else if(usertype=="Professional"){
             const professional = await Professional.findOne({Number: number});
+            if(professional==null){
+                res.status(500).json({ message: "Error Fetching User" });
+                return;
+            }
             console.log(professional);
             res.status(200).json(professional);
         }else if(usertype=="Parent"){
             const parent=await Child.findOne({parentPhoneNumber: number});
+            if(parent==null){
+                res.status(500).json({ message: "Error Fetching User" });
+                return;
+            }
             console.log(parent);
             res.status(200).json(parent);
         }else{
@@ -200,7 +305,6 @@ const searchNumber = async (req, res) => {
     }
 }
 
-
 export default responder;
 export { createProfessionalAccount,
     getProfessionalIds, 
@@ -210,5 +314,7 @@ export { createProfessionalAccount,
     getAdmins,
     getSchools,
     storeReportData,
+    uploadteacherdetails,
+    uploadchilddetails,
     searchNumber
 };

@@ -165,7 +165,7 @@ Future<void> submitOtp() async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SchoolDashboardScreen(),
+              builder: (context) => SchoolDashboardScreen(data : widget.mobileNumber),
             ),
           );
 
@@ -173,7 +173,7 @@ Future<void> submitOtp() async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NGODashboard(),
+              builder: (context) => NGODashboard(data: widget.mobileNumber),
             ),
           );
 
@@ -181,7 +181,7 @@ Future<void> submitOtp() async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProfessionalDashboard(),
+              builder: (context) => ProfessionalDashboard(data: widget.mobileNumber),
             ),
           );
 
@@ -189,7 +189,7 @@ Future<void> submitOtp() async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AdminDashboard(),
+              builder: (context) => AdminDashboard(data: widget.mobileNumber),
             ),
           );
       } else {

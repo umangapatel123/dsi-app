@@ -343,13 +343,7 @@ class _CreateSchoolAccountState extends State<CreateSchoolAccount> {
                         'assignedProfessionalId': _selectedProfessionalId,
                       });
 
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NGODashboard(),
-                        ),
-                        (Route<dynamic> route) => false,
-                      );
+                      Navigator.pop(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

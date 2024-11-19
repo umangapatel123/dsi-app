@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         // ),
         // home: TagImageManually(), // Set LoginScreen as the starting page
 
-        initialRoute: 'parentDashboard',
+        initialRoute: 'login',
         routes: {
           'login': (context) => LoginScreen(),
           'schoolLogin': (context) => SchoolLoginScreen(),
@@ -74,9 +74,9 @@ class _MyAppState extends State<MyApp> {
           'schoolScreen': (context) => SchoolsScreen(),
           'createSchoolAccount': (context) => CreateSchoolAccount(),
           'createProfessionalAccount': (context) => CreateProfessionalAccount(),
-          'schoolDashboard': (context) => SchoolDashboardScreen(),
-          'professionalDashboard': (context) => ProfessionalDashboard(),
-          'NGOdashboard': (context) => NGODashboard(),
+          'schoolDashboard': (context) => SchoolDashboardScreen(data: '',),
+          'professionalDashboard': (context) => ProfessionalDashboard(data: '',),
+          'NGOdashboard': (context) => NGODashboard(data: '',),
           'reportsDashboard': (context) => ReportsDashboardScreen(),
           'labelData': (context) => LabelDataScreen(),
           'labelPreviousData': (context) => LabelPreviousDataScreen(),
@@ -109,7 +109,7 @@ class _MyAppState extends State<MyApp> {
           'previousSubmission': (context) => PreviousSubmissionsScreen(data: '',),
           'uploadChildDetails': (context) => UploadChildDetails(),
           'uploadTeacherDetails': (context) => UploadTeacherDetails(),
-          'adminDashboard': (context) => AdminDashboard(),
+          'adminDashboard': (context) => AdminDashboard(data: '',),
           'schoolAdminLogin': (context) => SchoolAdminLogin(),
           'selectChild': (context) => SelectChildScreen(
                 data: '',
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
           // 'NGOlogin': (context) => NgoLoginScreen(),
           'CreateAdminAccount': (context) => CreateAdminAccountScreen(),
           'assignAdminToSchool': (context) => AssignAdminToSchoolScreen(),
-          'childReportDetails': (context) => ChildReport(),
+          'childReportDetails': (context) => ChildReport(data: ''),
         });
   }
 }

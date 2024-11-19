@@ -8,6 +8,12 @@ import 'package:mindseye/createadminaccount.dart';
 import 'package:mindseye/login.dart';
 
 class NGODashboard extends StatefulWidget {
+  final String data;
+
+  const NGODashboard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
   _NGODashboardState createState() => _NGODashboardState();
 }

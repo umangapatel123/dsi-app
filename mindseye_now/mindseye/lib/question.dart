@@ -120,22 +120,65 @@ class _QuestionsScreenState extends State<QuestionsScreen>
       final uri = Uri.parse('${backendUrl}/api/reports/store-report-data');
 
       // Send a POST request to the server
-      await http.post(uri, body: {});
+      final data = {
+        'clinicsName': widget.clinicName,
+        'childsName': widget.childName,
+        'age': widget.age,
+        'optionalNotes': widget.notes,
+        'flagforlabel': widget.labeledScore == "" ? "false" : "true",
+        'labelling': widget.labeledScore,
+        'imageurl': widget.imageFile!.path,
+        'houseAns': {
+          'WhoLivesHere': houseWhoLivesHereController.text,
+          'ArethereHappy': houseSelectDropdown,
+          'DoPeopleVisitHere': housePeopleVisitController.text,
+          'Whatelsepeoplewant': houseAdditionalNotesController.text,
+        },
+        'personAns': {
+          'Whoisthisperson': personWhoIsController.text,
+          'Howoldarethey': personAgeController.text,
+          'Whatsthierfavthing': personFavoriteThingController.text,
+          'Whattheydontlike': personDislikeController.text,
+        },
+        'treeAns': {
+          'Whatkindoftree': treeTypeController.text,
+          'howoldisit': treeAgeController.text,
+          'whatseasonisit': treeSeasonController.text,
+          'anyonetriedtocut': treeCutDownDropdown,
+          'whatelsegrows': treeNearbyController.text,
+          'whowaters': treeWateredByController.text,
+          'doesitgetenoughsunshine': treeSunshineDropdown,
+        }
+      };
+      print(data);
+      await http.post(uri, body: {
+        'clinicsName': widget.clinicName,
+        'childsName': widget.childName,
+        'age': widget.age,
+        'optionalNotes': widget.notes,
+        'flagforlabel': widget.labeledScore == "" ? "false" : "true",
+        'labelling': widget.labeledScore,
+        'imageurl': widget.imageFile!.path,
+        'WhoLivesHere': houseWhoLivesHereController.text,
+        'ArethereHappy': houseSelectDropdown,
+        'DoPeopleVisitHere': housePeopleVisitController.text,
+        'Whatelsepeoplewant': houseAdditionalNotesController.text,
+        'Whoisthisperson': personWhoIsController.text,
+        'Howoldarethey': personAgeController.text,
+        'Whatsthierfavthing': personFavoriteThingController.text,
+        'Whattheydontlike': personDislikeController.text,
+        'Whatkindoftree': treeTypeController.text,
+        'howoldisit': treeAgeController.text,
+        'whatseasonisit': treeSeasonController.text,
+        'anyonetriedtocut': treeCutDownDropdown,
+        'whatelsegrows': treeNearbyController.text,
+        'whowaters': treeWateredByController.text,
+        'doesitgetenoughsunshine': treeSunshineDropdown,
+      });
 
-      if (widget.data == "Professional") {
-        Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pop(context);
-
-      } else if (widget.data == "Teacher") {
-         Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pop(context);
-      } else if (widget.data == "Parent") {
-         Navigator.pop(context);
-        Navigator.pop(context);
-      }
-      }
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
     } else {
       showDialog(
         context: context,

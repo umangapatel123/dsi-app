@@ -257,9 +257,9 @@ class _CreateProfessionalAccountState extends State<CreateProfessionalAccount> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final uri = Uri.parse('${dotenv.env['BACKEND_URL']}/api/users/create-professional');
-                        // 'http://localhost:3000/api/users/create-professional');
-                      
+                    final uri = Uri.parse(
+                        '${dotenv.env['BACKEND_URL']}/api/users/create-professional');
+                    // 'http://localhost:3000/api/users/create-professional');
 
                     // Sending the input data to the server
                     await http.post(uri, body: {
@@ -269,13 +269,8 @@ class _CreateProfessionalAccountState extends State<CreateProfessionalAccount> {
                       'professionalId': _professionalIdController.text,
                     });
 
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NGODashboard(),
-                      ),
-                      (Route<dynamic> route) => false,
-                    );
+                    // Navigate to the NGO Dashboard
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

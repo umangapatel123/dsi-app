@@ -141,7 +141,6 @@ import 'package:mindseye/NGOdashboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:envied/envied.dart';
 
-
 class AssignAdminToSchoolScreen extends StatefulWidget {
   @override
   _AssignAdminToSchoolScreenState createState() =>
@@ -288,10 +287,14 @@ class _AssignAdminToSchoolScreenState extends State<AssignAdminToSchoolScreen> {
                   selectedAdmin = value;
 
                   // remove the schools that are already assigned to the admin
-                  List<String> assignedSchools = adminData[value]!['assignedSchools']!.split(', ');
-                  dispalyschools = schools.where((school) => !assignedSchools.contains(school)).toList();
+                  List<String> assignedSchools =
+                      adminData[value]!['assignedSchools']!.split(', ');
+                  dispalyschools = schools
+                      .where((school) => !assignedSchools.contains(school))
+                      .toList();
                   _phoneController.text = adminData[value]!['phone'] as String;
-                  _assignedSchoolsController.text = adminData[value]!['assignedSchools'] as String;
+                  _assignedSchoolsController.text =
+                      adminData[value]!['assignedSchools'] as String;
                 });
               },
             ),
@@ -358,18 +361,12 @@ class _AssignAdminToSchoolScreenState extends State<AssignAdminToSchoolScreen> {
                     // Uri.parse('http://localhost:3000/api/users/assign-admin-to-school'),
                     Uri.parse('${backendUrl}/api/users/assign-admin-to-school'),
                     body: {
-                      'adminName': selectedAdmin, 
+                      'adminName': selectedAdmin,
                       'schoolName': selectedSchoolToAssign,
                     },
                   );
 
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NGODashboard(),
-                    ),
-                    (Route<dynamic> route) => false,
-                  );
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,

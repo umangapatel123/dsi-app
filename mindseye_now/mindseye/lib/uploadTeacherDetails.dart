@@ -29,29 +29,21 @@ class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
     const url = 'http://localhost:3000/api/users/teacherupload';
 
     // Constructing the JSON object
-  // send a post request to url
-  var response = await http.post(
-    Uri.parse(url),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'name': name,
-      'class': teacherClass,
-      'school': school,
-      'phone': phone,
-    }),
-  );
+    // send a post request to url
+    var response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'class': teacherClass,
+        'school': school,
+        'phone': phone,
+      }),
+    );
 
-  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AdminDashboard(),
-                      ),
-                      (Route<dynamic> route) => false,
-                    );
-
-    
+    Navigator.pop(context);
   }
 
   @override

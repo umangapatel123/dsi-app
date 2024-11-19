@@ -50,13 +50,7 @@ class _CreateAdminAccountScreenState extends State<CreateAdminAccountScreen> {
       // 'email': email,
     });
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NGODashboard(),
-      ),
-      (Route<dynamic> route) => false,
-    );
+    Navigator.pop(context);
     // You can use these variables to send data to the server or perform other actions
   }
 

@@ -10,7 +10,6 @@ class CaptureDrawingScreen extends StatefulWidget {
   final String notes;
   final String labeledScore;
   final String data;
-
   const CaptureDrawingScreen({
     Key? key,
     required this.clinicName,
@@ -27,6 +26,7 @@ class CaptureDrawingScreen extends StatefulWidget {
 
 class _CaptureDrawingScreenState extends State<CaptureDrawingScreen> {
   File? _image;
+
 
   // Function to pick an image
   Future<void> _pickImage(ImageSource source) async {
@@ -161,7 +161,7 @@ class _CaptureDrawingScreenState extends State<CaptureDrawingScreen> {
                                 notes: widget.notes,
                                 labeledScore: widget.labeledScore,
                                 imageFile: _image,
-                                data: '',
+                                data: widget.data,
                               ),
                             ),
                           );

@@ -5,6 +5,12 @@ import 'package:mindseye/selectChild.dart';
 import 'package:mindseye/submissionStatus.dart';
 
 class SchoolDashboardScreen extends StatefulWidget {
+  final String data;
+
+  const SchoolDashboardScreen({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
   _SchoolDashboardScreenState createState() => _SchoolDashboardScreenState();
 }
