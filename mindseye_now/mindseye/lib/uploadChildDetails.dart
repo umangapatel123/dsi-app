@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:mindseye/adminDahboard.dart';
 
@@ -135,8 +136,10 @@ class _UploadChildDetailsState extends State<UploadChildDetails> {
                     print("Date of Birth: $dob");
 
                     // Send post request to the backend
-                    const url = "http://localhost:3000/api/users/childupload";
+                    // const url = "http://localhost:3000/api/users/childupload";
+                    String backendUrl = dotenv.env['BACKEND_URL']!;
 
+                    final url = '${backendUrl}/api/users/childupload';
                     var response = await http.post(
                       Uri.parse(url),
                       headers: <String, String>{

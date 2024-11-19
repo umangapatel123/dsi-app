@@ -5,16 +5,16 @@ import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:http/http.dart' as http;
 // Initialize Twilio
 final twilioFlutter = TwilioFlutter(
-  accountSid: 'ACb915e231adcd26971551592d0e549487', // Replace with your Account SID
-  authToken: '0bbacec697f419f19ec4b799fe51ef82', // Replace with your Auth Token
-  twilioNumber: '+917725961716'
+  accountSid: 'AC655a82471fb07e0076281ba18e252cbf', // Replace with your Account SID
+  authToken: '7e2bfd52cc9464025fec90dd786f10c5', // Replace with your Auth Token
+  twilioNumber: '+918769085261'
 
   // : 'VA4ca04d1e5b3e7b73c514c711479f56a4',// Replace with your Verification Service Id
 );
 
 // Function to send OTP
-Future<void> sendOtp(String dialCode, String phoneNumber,String usertype) async {
-    String backendUrl = dotenv.env['BACKEND_URL']!;
+Future<void> sendOtp(String dialCode, String phoneNumber, String usertype) async {
+  String backendUrl = dotenv.env['BACKEND_URL']!;
 
   final url = '${backendUrl}/api/users/search-number';
 
@@ -28,28 +28,30 @@ Future<void> sendOtp(String dialCode, String phoneNumber,String usertype) async 
       'number': phoneNumber
     }),
   );
+
   print(response_mongo.body);
-  if(response_mongo.body.message=="Error Fetching User"){
-    print("User not found");
-    return;
-  }
-  else{
-    print("User found");
+
+  final responseData = jsonDecode(response_mongo.body); // Decode the JSON response
+
+  if (responseData['message'] == "Error Fetching User") {
+    throw Exception("User not found"); // Throw an exception if the user is not found
   }
 
+  print("User found");
+
   TwilioResponse response = await twilioFlutter.sendVerificationCode(
-    verificationServiceId: 'VA4ca04d1e5b3e7b73c514c711479f56a4',
+    verificationServiceId: 'VA7a7ce8fb1464c6b77d3a6668adae518a',
     recipient: '$dialCode${phoneNumber.replaceAll(" ", "")}',
     verificationChannel: VerificationChannel.SMS,
   );
 
-  if (response.responseState == ResponseState.SUCCESS) {
-    print('OTP sent successfully.');
-    // Update your UI accordingly
-  } else {
-    print('Failed to send OTP: ${response.responseState}');
+  if (response.responseState != ResponseState.SUCCESS) {
+    throw Exception('Failed to send OTP: ${response.responseState}');
   }
+
+  print('OTP sent successfully.');
 }
+
 
 extension on String {
   get message => null;
@@ -62,7 +64,7 @@ extension on http.Response {
 Future<bool> verifyOtp(String dialCode, String phoneNumber, String otp) async {
   try {
     TwilioResponse response = await twilioFlutter.verifyCode(
-      verificationServiceId: 'VA4ca04d1e5b3e7b73c514c711479f56a4',
+      verificationServiceId: 'VA7a7ce8fb1464c6b77d3a6668adae518afl',
       recipient: '$dialCode${phoneNumber.replaceAll(" ", "")}',
       code: otp,
     );

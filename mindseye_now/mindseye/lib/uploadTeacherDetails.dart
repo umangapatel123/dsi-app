@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:mindseye/adminDahboard.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class UploadTeacherDetails extends StatefulWidget {
   @override
@@ -26,7 +27,10 @@ class _UploadTeacherDetailsState extends State<UploadTeacherDetails> {
     print("School: $school");
     print("Phone: $phone");
 
-    const url = 'http://localhost:3000/api/users/teacherupload';
+    // const url = 'http://localhost:3000/api/users/teacherupload';
+    String backendUrl = dotenv.env['BACKEND_URL']!;
+
+    final url = '${backendUrl}/api/users/teacherupload';
 
     // Constructing the JSON object
     // send a post request to url

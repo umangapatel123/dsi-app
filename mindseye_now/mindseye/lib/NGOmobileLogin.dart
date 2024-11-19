@@ -34,9 +34,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
     });
 
     try {
-      // await sendOtp('+91', phoneNumber); // Assuming dial code for India
-      // await sendOtp('+91', phoneNumber);
-      await sendOtp('+91', phoneNumber,widget.data);
+      await sendOtp('+91', phoneNumber, widget.data); // Assuming dial code for India
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -44,9 +42,12 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
         ),
       );
     } catch (e) {
-      print("Error sending OTP: $e");
+      setState(() {
+        _errorMessage = e.toString(); // Set the error message
+      });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
